@@ -1,0 +1,514 @@
+-- Skibidi Aim by Colin
+-- Instances
+local ScreenGui = Instance.new("ScreenGui")
+local MainFrame = Instance.new("Frame")
+local TitleBar = Instance.new("Frame")
+local Title = Instance.new("TextLabel")
+local ToggleAim = Instance.new("TextButton")
+local ToggleESP = Instance.new("TextButton")
+local RainbowToggle = Instance.new("TextButton")
+local CircleSlider = Instance.new("Frame")
+local SliderTitle = Instance.new("TextLabel")
+local SliderBackground = Instance.new("Frame")
+local SliderFill = Instance.new("Frame")
+local SliderButton = Instance.new("TextButton")
+local SliderValue = Instance.new("TextLabel")
+local AimCircle = Instance.new("Frame")
+local CircleOutline = Instance.new("UIStroke")
+
+--Properties
+ScreenGui.Name = "SkibidiAimGui"
+ScreenGui.Parent = game:GetService("CoreGui")
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+-- Aim Circle with outline - FOLLOWS CROSSHAIR
+AimCircle.Name = "SkibidiCircle"
+AimCircle.Parent = ScreenGui
+AimCircle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+AimCircle.BackgroundTransparency = 1.0
+AimCircle.BorderSizePixel = 0
+AimCircle.Size = UDim2.new(0, 50, 0, 50)
+AimCircle.AnchorPoint = Vector2.new(0.5, 0.5)
+AimCircle.Visible = false
+
+CircleOutline = Instance.new("UIStroke")
+CircleOutline.Parent = AimCircle
+CircleOutline.Color = Color3.fromRGB(255, 255, 255)
+CircleOutline.Thickness = 2
+CircleOutline.Transparency = 0.2
+
+local UICorner = Instance.new("UICorner")
+UICorner.CornerRadius = UDim.new(1, 0)
+UICorner.Parent = AimCircle
+
+-- Main Menu Frame
+MainFrame.Name = "SkibidiMenu"
+MainFrame.Parent = ScreenGui
+MainFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+MainFrame.BorderSizePixel = 0
+MainFrame.Position = UDim2.new(0.1, 0, 0.1, 0)
+MainFrame.Size = UDim2.new(0, 250, 0, 180)
+MainFrame.Active = true
+MainFrame.Draggable = true
+MainFrame.Visible = true
+
+TitleBar.Parent = MainFrame
+TitleBar.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+TitleBar.BorderSizePixel = 0
+TitleBar.Size = UDim2.new(1, 0, 0, 25)
+
+Title.Name = "Title"
+Title.Parent = TitleBar
+Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Title.BackgroundTransparency = 1.0
+Title.Size = UDim2.new(1, 0, 1, 0)
+Title.Font = Enum.Font.SciFi
+Title.Text = "Skibidi Aim v1.0 (M to toggle)"
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.TextSize = 14.000
+
+ToggleAim.Name = "SkibidiAimToggle"
+ToggleAim.Parent = MainFrame
+ToggleAim.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+ToggleAim.Position = UDim2.new(0, 0, 0, 25)
+ToggleAim.Size = UDim2.new(1, 0, 0, 35)
+ToggleAim.Font = Enum.Font.SciFi
+ToggleAim.Text = "SKIBIDI AIM: OFF"
+ToggleAim.TextColor3 = Color3.fromRGB(255, 0, 0)
+ToggleAim.TextSize = 14.000
+ToggleAim.BorderSizePixel = 0
+
+ToggleESP.Name = "SkibidiESPToggle"
+ToggleESP.Parent = MainFrame
+ToggleESP.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+ToggleESP.Position = UDim2.new(0, 0, 0, 60)
+ToggleESP.Size = UDim2.new(1, 0, 0, 35)
+ToggleESP.Font = Enum.Font.SciFi
+ToggleESP.Text = "SKIBIDI ESP: OFF"
+ToggleESP.TextColor3 = Color3.fromRGB(255, 0, 0)
+ToggleESP.TextSize = 14.000
+ToggleESP.BorderSizePixel = 0
+
+RainbowToggle.Name = "SkibidiRainbowToggle"
+RainbowToggle.Parent = MainFrame
+RainbowToggle.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+RainbowToggle.Position = UDim2.new(0, 0, 0, 95)
+RainbowToggle.Size = UDim2.new(1, 0, 0, 35)
+RainbowToggle.Font = Enum.Font.SciFi
+RainbowToggle.Text = "SKIBIDI RAINBOW: OFF"
+RainbowToggle.TextColor3 = Color3.fromRGB(255, 0, 0)
+RainbowToggle.TextSize = 14.000
+RainbowToggle.BorderSizePixel = 0
+
+-- Circle Slider
+CircleSlider.Parent = MainFrame
+CircleSlider.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+CircleSlider.BorderSizePixel = 0
+CircleSlider.Position = UDim2.new(0, 0, 0, 130)
+CircleSlider.Size = UDim2.new(1, 0, 0, 50)
+
+SliderTitle = Instance.new("TextLabel")
+SliderTitle.Parent = CircleSlider
+SliderTitle.BackgroundTransparency = 1.0
+SliderTitle.Size = UDim2.new(1, 0, 0, 15)
+SliderTitle.Font = Enum.Font.SciFi
+SliderTitle.Text = "Skibidi Circle Size"
+SliderTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+SliderTitle.TextSize = 12.000
+
+SliderBackground = Instance.new("Frame")
+SliderBackground.Parent = CircleSlider
+SliderBackground.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+SliderBackground.BorderSizePixel = 0
+SliderBackground.Position = UDim2.new(0.05, 0, 0, 20)
+SliderBackground.Size = UDim2.new(0.9, 0, 0, 10)
+
+SliderFill = Instance.new("Frame")
+SliderFill.Parent = SliderBackground
+SliderFill.BackgroundColor3 = Color3.fromRGB(0, 150, 255)
+SliderFill.BorderSizePixel = 0
+SliderFill.Size = UDim2.new(0.5, 0, 1, 0)
+
+SliderButton = Instance.new("TextButton")
+SliderButton.Parent = SliderBackground
+SliderButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+SliderButton.BorderSizePixel = 0
+SliderButton.Size = UDim2.new(0, 15, 0, 15)
+SliderButton.Position = UDim2.new(0.5, -7.5, 0, -2.5)
+SliderButton.Text = ""
+local SliderCorner = Instance.new("UICorner")
+SliderCorner.CornerRadius = UDim.new(1, 0)
+SliderCorner.Parent = SliderButton
+
+SliderValue = Instance.new("TextLabel")
+SliderValue.Parent = CircleSlider
+SliderValue.BackgroundTransparency = 1.0
+SliderValue.Position = UDim2.new(0, 0, 0, 35)
+SliderValue.Size = UDim2.new(1, 0, 0, 15)
+SliderValue.Font = Enum.Font.SciFi
+SliderValue.Text = "Size: 50"
+SliderValue.TextColor3 = Color3.fromRGB(255, 255, 255)
+SliderValue.TextSize = 12.000
+
+-- Script Variables
+local Aiming = false
+local ESPing = false
+local RainbowEnabled = false
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+local Camera = workspace.CurrentCamera
+local ESPStore = {}
+local CurrentCircleSize = 50
+local MinCircleSize = 20
+local MaxCircleSize = 150
+local IsSliderDragging = false
+local RainbowHue = 0
+
+-- Get crosshair position (mouse position)
+local function getCrosshairPosition()
+    local mouse = LocalPlayer:GetMouse()
+    return Vector2.new(mouse.X, mouse.Y)
+end
+
+-- Rainbow color function
+local function getRainbowColor()
+    RainbowHue = (RainbowHue + 0.01) % 1
+    return Color3.fromHSV(RainbowHue, 1, 1)
+end
+
+local function updateRainbowColor()
+    if RainbowEnabled and AimCircle.Visible then
+        local rainbowColor = getRainbowColor()
+        CircleOutline.Color = rainbowColor
+    else
+        CircleOutline.Color = Color3.fromRGB(255, 255, 255)
+    end
+end
+
+-- Wall Check Function
+local function isVisible(part)
+    if not part then return false end
+    local origin = Camera.CFrame.Position
+    local target = part.Position
+    local direction = (target - origin).Unit * (origin - target).Magnitude
+    local ray = Ray.new(origin, direction)
+    local hit, position = workspace:FindPartOnRayWithIgnoreList(ray, {LocalPlayer.Character, part.Parent})
+    return hit == nil or hit:IsDescendantOf(part.Parent)
+end
+
+-- Check if enemy is in circle (RELATIVE TO CROSSHAIR)
+local function isEnemyInCircle(enemyHead)
+    if not enemyHead then return false end
+    
+    local screenPoint, visible = Camera:WorldToViewportPoint(enemyHead.Position)
+    if not visible then return false end
+    
+    local crosshairPos = getCrosshairPosition()
+    local enemyScreenPos = Vector2.new(screenPoint.X, screenPoint.Y)
+    local distance = (enemyScreenPos - crosshairPos).Magnitude
+    
+    return distance <= CurrentCircleSize / 2
+end
+
+-- Get Closest Player in Circle Function
+local function getClosestPlayerInCircle()
+    local closestPlayer = nil
+    local shortestDistance = math.huge
+
+    for _, player in ipairs(Players:GetPlayers()) do
+        if player ~= LocalPlayer and player.Character and player.Character:FindFirstChild("HumanoidRootPart") and player.Character:FindFirstChild("Head") then
+            local character = player.Character
+            local head = character.Head
+            local root = character.HumanoidRootPart
+            
+            if isVisible(root) and isEnemyInCircle(head) then
+                local distance = (LocalPlayer.Character.HumanoidRootPart.Position - root.Position).Magnitude
+                if distance < shortestDistance then
+                    shortestDistance = distance
+                    closestPlayer = player
+                end
+            end
+        end
+    end
+    return closestPlayer
+end
+
+-- Update Circle Size and Position
+local function updateCircleSize(value)
+    CurrentCircleSize = math.clamp(value, MinCircleSize, MaxCircleSize)
+    AimCircle.Size = UDim2.new(0, CurrentCircleSize, 0, CurrentCircleSize)
+    
+    local fillPercent = (CurrentCircleSize - MinCircleSize) / (MaxCircleSize - MinCircleSize)
+    SliderFill.Size = UDim2.new(fillPercent, 0, 1, 0)
+    SliderButton.Position = UDim2.new(fillPercent, -7.5, 0, -2.5)
+    SliderValue.Text = "Size: " .. CurrentCircleSize
+end
+
+-- Update circle position to follow crosshair
+local function updateCirclePosition()
+    if AimCircle.Visible then
+        local crosshairPos = getCrosshairPosition()
+        AimCircle.Position = UDim2.new(0, crosshairPos.X, 0, crosshairPos.Y)
+    end
+end
+
+-- ESP Functions
+local function createESP(player)
+    if ESPStore[player] then return end
+    
+    local espContainer = Instance.new("Folder")
+    espContainer.Name = player.Name .. "_ESP"
+    espContainer.Parent = ScreenGui
+    
+    ESPStore[player] = {
+        Container = espContainer,
+        Highlight = nil,
+        Billboard = nil,
+        NameBillboard = nil,
+        IsDead = false
+    }
+    
+    local function updateESP()
+        while ESPStore[player] and player do
+            if player.Character and player.Character:FindFirstChild("Head") and player.Character:FindFirstChild("HumanoidRootPart") then
+                if not ESPStore[player].Highlight then
+                    local highlight = Instance.new("Highlight")
+                    highlight.Parent = ESPStore[player].Container
+                    highlight.Adornee = player.Character
+                    highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+                    highlight.FillColor = Color3.fromRGB(255, 0, 0)
+                    highlight.FillTransparency = 0.8
+                    highlight.OutlineColor = Color3.fromRGB(255, 255, 255)
+                    highlight.OutlineTransparency = 0
+                    ESPStore[player].Highlight = highlight
+                else
+                    ESPStore[player].Highlight.Adornee = player.Character
+                end
+                
+                if not ESPStore[player].Billboard then
+                    local billboard = Instance.new("BillboardGui")
+                    billboard.Parent = ESPStore[player].Container
+                    billboard.Adornee = player.Character.Head
+                    billboard.Size = UDim2.new(0, 50, 0, 6)
+                    billboard.StudsOffset = Vector3.new(0, 1.8, 0)
+                    billboard.AlwaysOnTop = true
+                    
+                    local healthBarBackground = Instance.new("Frame")
+                    healthBarBackground.Parent = billboard
+                    healthBarBackground.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+                    healthBarBackground.BorderSizePixel = 0
+                    healthBarBackground.Size = UDim2.new(1, 0, 1, 0)
+                    
+                    local healthBar = Instance.new("Frame")
+                    healthBar.Parent = healthBarBackground
+                    healthBar.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+                    healthBar.BorderSizePixel = 0
+                    healthBar.Size = UDim2.new(1, 0, 1, 0)
+                    
+                    ESPStore[player].Billboard = billboard
+                    ESPStore[player].HealthBar = healthBar
+                else
+                    ESPStore[player].Billboard.Adornee = player.Character.Head
+                end
+                
+                if not ESPStore[player].NameBillboard then
+                    local nameBillboard = Instance.new("BillboardGui")
+                    nameBillboard.Parent = ESPStore[player].Container
+                    nameBillboard.Adornee = player.Character.Head
+                    nameBillboard.Size = UDim2.new(0, 100, 0, 20)
+                    nameBillboard.StudsOffset = Vector3.new(0, 2.5, 0)
+                    nameBillboard.AlwaysOnTop = true
+                    
+                    local nameLabel = Instance.new("TextLabel")
+                    nameLabel.Parent = nameBillboard
+                    nameLabel.BackgroundTransparency = 1.0
+                    nameLabel.Text = player.Name
+                    nameLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    nameLabel.TextSize = 12.000
+                    nameLabel.Size = UDim2.new(1, 0, 1, 0)
+                    nameLabel.Font = Enum.Font.SciFi
+                    
+                    ESPStore[player].NameBillboard = nameBillboard
+                    ESPStore[player].NameLabel = nameLabel
+                else
+                    ESPStore[player].NameBillboard.Adornee = player.Character.Head
+                end
+                
+                local humanoid = player.Character:FindFirstChild("Humanoid")
+                if humanoid then
+                    local healthPercent = humanoid.Health / humanoid.MaxHealth
+                    ESPStore[player].HealthBar.Size = UDim2.new(math.clamp(healthPercent, 0, 1), 0, 1, 0)
+                    
+                    if humanoid.Health <= 0 then
+                        ESPStore[player].IsDead = true
+                        ESPStore[player].Highlight.FillColor = Color3.fromRGB(100, 100, 100)
+                        ESPStore[player].HealthBar.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+                        ESPStore[player].NameLabel.TextColor3 = Color3.fromRGB(150, 150, 150)
+                    else
+                        ESPStore[player].IsDead = false
+                        ESPStore[player].Highlight.FillColor = Color3.fromRGB(255, 0, 0)
+                        ESPStore[player].HealthBar.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+                        ESPStore[player].NameLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    end
+                end
+            else
+                if ESPStore[player].Highlight then
+                    ESPStore[player].Highlight.Adornee = nil
+                end
+                if ESPStore[player].Billboard then
+                    ESPStore[player].Billboard.Adornee = nil
+                end
+                if ESPStore[player].NameBillboard then
+                    ESPStore[player].NameBillboard.Adornee = nil
+                end
+                ESPStore[player].IsDead = true
+            end
+            wait(0.1)
+        end
+    end
+    
+    coroutine.wrap(updateESP)()
+end
+
+local function removeESP(player)
+    if ESPStore[player] then
+        if ESPStore[player].Container then
+            ESPStore[player].Container:Destroy()
+        end
+        ESPStore[player] = nil
+    end
+end
+
+local function toggleAllESP(state)
+    for _, player in ipairs(Players:GetPlayers()) do
+        if player ~= LocalPlayer then
+            if state then
+                createESP(player)
+            else
+                removeESP(player)
+            end
+        end
+    end
+end
+
+-- Toggle Functions
+ToggleAim.MouseButton1Click:Connect(function()
+    Aiming = not Aiming
+    if Aiming then
+        ToggleAim.Text = "SKIBIDI AIM: ON"
+        ToggleAim.TextColor3 = Color3.fromRGB(0, 255, 0)
+        AimCircle.Visible = true
+    else
+        ToggleAim.Text = "SKIBIDI AIM: OFF"
+        ToggleAim.TextColor3 = Color3.fromRGB(255, 0, 0)
+        AimCircle.Visible = false
+    end
+end)
+
+ToggleESP.MouseButton1Click:Connect(function()
+    ESPing = not ESPing
+    if ESPing then
+        ToggleESP.Text = "SKIBIDI ESP: ON"
+        ToggleESP.TextColor3 = Color3.fromRGB(0, 255, 0)
+        toggleAllESP(true)
+    else
+        ToggleESP.Text = "SKIBIDI ESP: OFF"
+        ToggleESP.TextColor3 = Color3.fromRGB(255, 0, 0)
+        toggleAllESP(false)
+    end
+end)
+
+RainbowToggle.MouseButton1Click:Connect(function()
+    RainbowEnabled = not RainbowEnabled
+    if RainbowEnabled then
+        RainbowToggle.Text = "SKIBIDI RAINBOW: ON"
+        RainbowToggle.TextColor3 = Color3.fromRGB(0, 255, 0)
+    else
+        RainbowToggle.Text = "SKIBIDI RAINBOW: OFF"
+        RainbowToggle.TextColor3 = Color3.fromRGB(255, 0, 0)
+        CircleOutline.Color = Color3.fromRGB(255, 255, 255)
+    end
+end)
+
+-- Slider functionality
+SliderButton.MouseButton1Down:Connect(function()
+    IsSliderDragging = true
+end)
+
+UserInputService.InputEnded:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        IsSliderDragging = false
+    end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+    if IsSliderDragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+        local mousePos = UserInputService:GetMouseLocation()
+        local sliderAbsolutePos = SliderBackground.AbsolutePosition
+        local sliderAbsoluteSize = SliderBackground.AbsoluteSize
+        
+        local relativeX = math.clamp((mousePos.X - sliderAbsolutePos.X) / sliderAbsoluteSize.X, 0, 1)
+        local newSize = math.floor(MinCircleSize + relativeX * (MaxCircleSize - MinCircleSize))
+        updateCircleSize(newSize)
+    end
+end)
+
+-- M key to toggle menu
+UserInputService.InputBegan:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode.M then
+        MainFrame.Visible = not MainFrame.Visible
+    end
+end)
+
+-- Main update loop
+RunService.RenderStepped:Connect(function()
+    updateRainbowColor()
+    
+    -- Update circle position to follow crosshair
+    updateCirclePosition()
+    
+    if Aiming and LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+        local target = getClosestPlayerInCircle()
+        if target and target.Character and target.Character:FindFirstChild("HumanoidRootPart") then
+            local humanoid = target.Character:FindFirstChild("Humanoid")
+            if humanoid and humanoid.Health > 0 then
+                local targetRoot = target.Character.HumanoidRootPart
+                Camera.CFrame = CFrame.new(Camera.CFrame.Position, targetRoot.Position)
+            end
+        end
+    end
+end)
+
+-- Initial cleanup
+for _, player in ipairs(Players:GetPlayers()) do
+    if player ~= LocalPlayer then
+        removeESP(player)
+    end
+end
+
+-- Handle players
+Players.PlayerAdded:Connect(function(player)
+    if ESPing then
+        createESP(player)
+    end
+end)
+
+Players.PlayerRemoving:Connect(function(player)
+    removeESP(player)
+end)
+
+-- Auto-create ESP for existing players if enabled
+if ESPing then
+    for _, player in ipairs(Players:GetPlayers()) do
+        if player ~= LocalPlayer then
+            createESP(player)
+        end
+    end
+end
+
+-- Initialize circle size
+updateCircleSize(50)
+
+print("Skibidi Aim loaded successfully! Press M to toggle menu.")

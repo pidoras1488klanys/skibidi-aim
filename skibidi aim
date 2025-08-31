@@ -1,4 +1,4 @@
--- Skibidi Aim by Colin
+-- Skibidi Aim Pro by Colin
 -- Instances
 local ScreenGui = Instance.new("ScreenGui")
 local MainFrame = Instance.new("Frame")
@@ -7,6 +7,7 @@ local Title = Instance.new("TextLabel")
 local ToggleAim = Instance.new("TextButton")
 local ToggleESP = Instance.new("TextButton")
 local RainbowToggle = Instance.new("TextButton")
+local AimPartToggle = Instance.new("TextButton")
 local CircleSlider = Instance.new("Frame")
 local SliderTitle = Instance.new("TextLabel")
 local SliderBackground = Instance.new("Frame")
@@ -47,7 +48,7 @@ MainFrame.Parent = ScreenGui
 MainFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
 MainFrame.BorderSizePixel = 0
 MainFrame.Position = UDim2.new(0.1, 0, 0.1, 0)
-MainFrame.Size = UDim2.new(0, 250, 0, 180)
+MainFrame.Size = UDim2.new(0, 280, 0, 220)
 MainFrame.Active = true
 MainFrame.Draggable = true
 MainFrame.Visible = true
@@ -63,7 +64,7 @@ Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Title.BackgroundTransparency = 1.0
 Title.Size = UDim2.new(1, 0, 1, 0)
 Title.Font = Enum.Font.SciFi
-Title.Text = "Skibidi Aim v1.0 (M to toggle)"
+Title.Text = "Skibidi Aim Pro v2.0 (M to toggle)"
 Title.TextColor3 = Color3.fromRGB(255, 255, 255)
 Title.TextSize = 14.000
 
@@ -100,11 +101,22 @@ RainbowToggle.TextColor3 = Color3.fromRGB(255, 0, 0)
 RainbowToggle.TextSize = 14.000
 RainbowToggle.BorderSizePixel = 0
 
+AimPartToggle.Name = "SkibidiAimPartToggle"
+AimPartToggle.Parent = MainFrame
+AimPartToggle.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+AimPartToggle.Position = UDim2.new(0, 0, 0, 130)
+AimPartToggle.Size = UDim2.new(1, 0, 0, 35)
+AimPartToggle.Font = Enum.Font.SciFi
+AimPartToggle.Text = "AIM: HEAD"
+AimPartToggle.TextColor3 = Color3.fromRGB(0, 255, 0)
+AimPartToggle.TextSize = 14.000
+AimPartToggle.BorderSizePixel = 0
+
 -- Circle Slider
 CircleSlider.Parent = MainFrame
 CircleSlider.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
 CircleSlider.BorderSizePixel = 0
-CircleSlider.Position = UDim2.new(0, 0, 0, 130)
+CircleSlider.Position = UDim2.new(0, 0, 0, 165)
 CircleSlider.Size = UDim2.new(1, 0, 0, 50)
 
 SliderTitle = Instance.new("TextLabel")
@@ -154,6 +166,7 @@ SliderValue.TextSize = 12.000
 local Aiming = false
 local ESPing = false
 local RainbowEnabled = false
+local AimAtHead = true
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 local RunService = game:GetService("RunService")
@@ -162,7 +175,7 @@ local Camera = workspace.CurrentCamera
 local ESPStore = {}
 local CurrentCircleSize = 50
 local MinCircleSize = 20
-local MaxCircleSize = 150
+local MaxCircleSize = 300  -- Increased max size
 local IsSliderDragging = false
 local RainbowHue = 0
 
@@ -221,10 +234,9 @@ local function getClosestPlayerInCircle()
         if player ~= LocalPlayer and player.Character and player.Character:FindFirstChild("HumanoidRootPart") and player.Character:FindFirstChild("Head") then
             local character = player.Character
             local head = character.Head
-            local root = character.HumanoidRootPart
             
-            if isVisible(root) and isEnemyInCircle(head) then
-                local distance = (LocalPlayer.Character.HumanoidRootPart.Position - root.Position).Magnitude
+            if isVisible(head) and isEnemyInCircle(head) then
+                local distance = (LocalPlayer.Character.HumanoidRootPart.Position - head.Position).Magnitude
                 if distance < shortestDistance then
                     shortestDistance = distance
                     closestPlayer = player
@@ -233,6 +245,16 @@ local function getClosestPlayerInCircle()
         end
     end
     return closestPlayer
+end
+
+-- Get target part (head or torso)
+local function getTargetPart(character)
+    if AimAtHead and character:FindFirstChild("Head") then
+        return character.Head
+    elseif character:FindFirstChild("HumanoidRootPart") then
+        return character.HumanoidRootPart
+    end
+    return nil
 end
 
 -- Update Circle Size and Position
@@ -432,6 +454,17 @@ RainbowToggle.MouseButton1Click:Connect(function()
     end
 end)
 
+AimPartToggle.MouseButton1Click:Connect(function()
+    AimAtHead = not AimAtHead
+    if AimAtHead then
+        AimPartToggle.Text = "AIM: HEAD"
+        AimPartToggle.TextColor3 = Color3.fromRGB(0, 255, 0)
+    else
+        AimPartToggle.Text = "AIM: BODY"
+        AimPartToggle.TextColor3 = Color3.fromRGB(255, 165, 0)
+    end
+end)
+
 -- Slider functionality
 SliderButton.MouseButton1Down:Connect(function()
     IsSliderDragging = true
@@ -471,11 +504,12 @@ RunService.RenderStepped:Connect(function()
     
     if Aiming and LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
         local target = getClosestPlayerInCircle()
-        if target and target.Character and target.Character:FindFirstChild("HumanoidRootPart") then
+        if target and target.Character then
             local humanoid = target.Character:FindFirstChild("Humanoid")
-            if humanoid and humanoid.Health > 0 then
-                local targetRoot = target.Character.HumanoidRootPart
-                Camera.CFrame = CFrame.new(Camera.CFrame.Position, targetRoot.Position)
+            local targetPart = getTargetPart(target.Character)
+            
+            if humanoid and humanoid.Health > 0 and targetPart then
+                Camera.CFrame = CFrame.new(Camera.CFrame.Position, targetPart.Position)
             end
         end
     end
@@ -511,4 +545,4 @@ end
 -- Initialize circle size
 updateCircleSize(50)
 
-print("Skibidi Aim loaded successfully! Press M to toggle menu.")
+print("Skibidi Aim Pro loaded successfully! Press M to toggle menu.")

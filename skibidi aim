@@ -42,98 +42,145 @@ local UICorner = Instance.new("UICorner")
 UICorner.CornerRadius = UDim.new(1, 0)
 UICorner.Parent = AimCircle
 
--- Main Menu Frame
+-- Main Menu Frame - LARGER AND ROUNDED
 MainFrame.Name = "SkibidiMenu"
 MainFrame.Parent = ScreenGui
-MainFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+MainFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+MainFrame.BackgroundTransparency = 0.1
 MainFrame.BorderSizePixel = 0
-MainFrame.Position = UDim2.new(0.1, 0, 0.1, 0)
-MainFrame.Size = UDim2.new(0, 280, 0, 220)
+MainFrame.Position = UDim2.new(0.05, 0, 0.05, 0)
+MainFrame.Size = UDim2.new(0, 500, 0, 400)  -- Much larger
 MainFrame.Active = true
 MainFrame.Draggable = true
 MainFrame.Visible = true
 
+-- Rounded corners for main frame
+local MainFrameCorner = Instance.new("UICorner")
+MainFrameCorner.CornerRadius = UDim.new(0, 15)
+MainFrameCorner.Parent = MainFrame
+
+-- Add subtle shadow effect
+local MainFrameShadow = Instance.new("UIStroke")
+MainFrameShadow.Parent = MainFrame
+MainFrameShadow.Color = Color3.fromRGB(20, 20, 20)
+MainFrameShadow.Thickness = 3
+MainFrameShadow.Transparency = 0.7
+
 TitleBar.Parent = MainFrame
-TitleBar.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+TitleBar.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
 TitleBar.BorderSizePixel = 0
-TitleBar.Size = UDim2.new(1, 0, 0, 25)
+TitleBar.Size = UDim2.new(1, 0, 0, 40)
+
+-- Rounded corners for title bar
+local TitleBarCorner = Instance.new("UICorner")
+TitleBarCorner.CornerRadius = UDim.new(0, 12)
+TitleBarCorner.Parent = TitleBar
 
 Title.Name = "Title"
 Title.Parent = TitleBar
 Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Title.BackgroundTransparency = 1.0
 Title.Size = UDim2.new(1, 0, 1, 0)
-Title.Font = Enum.Font.SciFi
-Title.Text = "Skibidi Aim Pro v2.0 (M to toggle)"
+Title.Font = Enum.Font.GothamBold
+Title.Text = "SKIBIDI AIM PRO v2.0"
 Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-Title.TextSize = 14.000
+Title.TextSize = 18.000
+Title.TextStrokeTransparency = 0.8
 
-ToggleAim.Name = "SkibidiAimToggle"
+-- AIM BOT Button - Rounded
+ToggleAim.Name = "AimBotToggle"
 ToggleAim.Parent = MainFrame
-ToggleAim.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
-ToggleAim.Position = UDim2.new(0, 0, 0, 25)
-ToggleAim.Size = UDim2.new(1, 0, 0, 35)
-ToggleAim.Font = Enum.Font.SciFi
-ToggleAim.Text = "SKIBIDI AIM: OFF"
+ToggleAim.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+ToggleAim.Position = UDim2.new(0.05, 0, 0.15, 0)
+ToggleAim.Size = UDim2.new(0.4, 0, 0, 50)
+ToggleAim.Font = Enum.Font.GothamBold
+ToggleAim.Text = "AIM BOT: OFF"
 ToggleAim.TextColor3 = Color3.fromRGB(255, 0, 0)
-ToggleAim.TextSize = 14.000
+ToggleAim.TextSize = 16.000
 ToggleAim.BorderSizePixel = 0
 
-ToggleESP.Name = "SkibidiESPToggle"
+local AimCorner = Instance.new("UICorner")
+AimCorner.CornerRadius = UDim.new(0, 12)
+AimCorner.Parent = ToggleAim
+
+-- ESP Button - Rounded
+ToggleESP.Name = "ESPToggle"
 ToggleESP.Parent = MainFrame
-ToggleESP.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
-ToggleESP.Position = UDim2.new(0, 0, 0, 60)
-ToggleESP.Size = UDim2.new(1, 0, 0, 35)
-ToggleESP.Font = Enum.Font.SciFi
-ToggleESP.Text = "SKIBIDI ESP: OFF"
+ToggleESP.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+ToggleESP.Position = UDim2.new(0.55, 0, 0.15, 0)
+ToggleESP.Size = UDim2.new(0.4, 0, 0, 50)
+ToggleESP.Font = Enum.Font.GothamBold
+ToggleESP.Text = "ESP: OFF"
 ToggleESP.TextColor3 = Color3.fromRGB(255, 0, 0)
-ToggleESP.TextSize = 14.000
+ToggleESP.TextSize = 16.000
 ToggleESP.BorderSizePixel = 0
 
-RainbowToggle.Name = "SkibidiRainbowToggle"
+local ESPCorner = Instance.new("UICorner")
+ESPCorner.CornerRadius = UDim.new(0, 12)
+ESPCorner.Parent = ToggleESP
+
+-- RAINBOW Button - Rounded
+RainbowToggle.Name = "RainbowToggle"
 RainbowToggle.Parent = MainFrame
-RainbowToggle.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
-RainbowToggle.Position = UDim2.new(0, 0, 0, 95)
-RainbowToggle.Size = UDim2.new(1, 0, 0, 35)
-RainbowToggle.Font = Enum.Font.SciFi
-RainbowToggle.Text = "SKIBIDI RAINBOW: OFF"
+RainbowToggle.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+RainbowToggle.Position = UDim2.new(0.05, 0, 0.3, 0)
+RainbowToggle.Size = UDim2.new(0.4, 0, 0, 50)
+RainbowToggle.Font = Enum.Font.GothamBold
+RainbowToggle.Text = "RAINBOW: OFF"
 RainbowToggle.TextColor3 = Color3.fromRGB(255, 0, 0)
-RainbowToggle.TextSize = 14.000
+RainbowToggle.TextSize = 16.000
 RainbowToggle.BorderSizePixel = 0
 
-AimPartToggle.Name = "SkibidiAimPartToggle"
+local RainbowCorner = Instance.new("UICorner")
+RainbowCorner.CornerRadius = UDim.new(0, 12)
+RainbowCorner.Parent = RainbowToggle
+
+-- Aim Part Toggle - Rounded
+AimPartToggle.Name = "AimPartToggle"
 AimPartToggle.Parent = MainFrame
-AimPartToggle.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
-AimPartToggle.Position = UDim2.new(0, 0, 0, 130)
-AimPartToggle.Size = UDim2.new(1, 0, 0, 35)
-AimPartToggle.Font = Enum.Font.SciFi
+AimPartToggle.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+AimPartToggle.Position = UDim2.new(0.55, 0, 0.3, 0)
+AimPartToggle.Size = UDim2.new(0.4, 0, 0, 50)
+AimPartToggle.Font = Enum.Font.GothamBold
 AimPartToggle.Text = "AIM: HEAD"
 AimPartToggle.TextColor3 = Color3.fromRGB(0, 255, 0)
-AimPartToggle.TextSize = 14.000
+AimPartToggle.TextSize = 16.000
 AimPartToggle.BorderSizePixel = 0
 
--- Circle Slider
+local AimPartCorner = Instance.new("UICorner")
+AimPartCorner.CornerRadius = UDim.new(0, 12)
+AimPartCorner.Parent = AimPartToggle
+
+-- Circle Slider - Rounded
 CircleSlider.Parent = MainFrame
-CircleSlider.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+CircleSlider.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
 CircleSlider.BorderSizePixel = 0
-CircleSlider.Position = UDim2.new(0, 0, 0, 165)
-CircleSlider.Size = UDim2.new(1, 0, 0, 50)
+CircleSlider.Position = UDim2.new(0.05, 0, 0.5, 0)
+CircleSlider.Size = UDim2.new(0.9, 0, 0, 80)
+
+local SliderCornerMain = Instance.new("UICorner")
+SliderCornerMain.CornerRadius = UDim.new(0, 10)
+SliderCornerMain.Parent = CircleSlider
 
 SliderTitle = Instance.new("TextLabel")
 SliderTitle.Parent = CircleSlider
 SliderTitle.BackgroundTransparency = 1.0
-SliderTitle.Size = UDim2.new(1, 0, 0, 15)
-SliderTitle.Font = Enum.Font.SciFi
-SliderTitle.Text = "Skibidi Circle Size"
+SliderTitle.Size = UDim2.new(1, 0, 0, 20)
+SliderTitle.Font = Enum.Font.GothamBold
+SliderTitle.Text = "CIRCLE SIZE"
 SliderTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
-SliderTitle.TextSize = 12.000
+SliderTitle.TextSize = 14.000
 
 SliderBackground = Instance.new("Frame")
 SliderBackground.Parent = CircleSlider
-SliderBackground.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+SliderBackground.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 SliderBackground.BorderSizePixel = 0
-SliderBackground.Position = UDim2.new(0.05, 0, 0, 20)
-SliderBackground.Size = UDim2.new(0.9, 0, 0, 10)
+SliderBackground.Position = UDim2.new(0.05, 0, 0, 30)
+SliderBackground.Size = UDim2.new(0.9, 0, 0, 15)
+
+local SliderBgCorner = Instance.new("UICorner")
+SliderBgCorner.CornerRadius = UDim.new(1, 0)
+SliderBgCorner.Parent = SliderBackground
 
 SliderFill = Instance.new("Frame")
 SliderFill.Parent = SliderBackground
@@ -141,26 +188,30 @@ SliderFill.BackgroundColor3 = Color3.fromRGB(0, 150, 255)
 SliderFill.BorderSizePixel = 0
 SliderFill.Size = UDim2.new(0.5, 0, 1, 0)
 
+local SliderFillCorner = Instance.new("UICorner")
+SliderFillCorner.CornerRadius = UDim.new(1, 0)
+SliderFillCorner.Parent = SliderFill
+
 SliderButton = Instance.new("TextButton")
 SliderButton.Parent = SliderBackground
 SliderButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 SliderButton.BorderSizePixel = 0
-SliderButton.Size = UDim2.new(0, 15, 0, 15)
-SliderButton.Position = UDim2.new(0.5, -7.5, 0, -2.5)
+SliderButton.Size = UDim2.new(0, 20, 0, 20)
+SliderButton.Position = UDim2.new(0.5, -10, 0, -2.5)
 SliderButton.Text = ""
-local SliderCorner = Instance.new("UICorner")
-SliderCorner.CornerRadius = UDim.new(1, 0)
-SliderCorner.Parent = SliderButton
+local SliderButtonCorner = Instance.new("UICorner")
+SliderButtonCorner.CornerRadius = UDim.new(1, 0)
+SliderButtonCorner.Parent = SliderButton
 
 SliderValue = Instance.new("TextLabel")
 SliderValue.Parent = CircleSlider
 SliderValue.BackgroundTransparency = 1.0
-SliderValue.Position = UDim2.new(0, 0, 0, 35)
-SliderValue.Size = UDim2.new(1, 0, 0, 15)
-SliderValue.Font = Enum.Font.SciFi
-SliderValue.Text = "Size: 50"
+SliderValue.Position = UDim2.new(0, 0, 0, 55)
+SliderValue.Size = UDim2.new(1, 0, 0, 20)
+SliderValue.Font = Enum.Font.GothamBold
+SliderValue.Text = "SIZE: 50"
 SliderValue.TextColor3 = Color3.fromRGB(255, 255, 255)
-SliderValue.TextSize = 12.000
+SliderValue.TextSize = 14.000
 
 -- Script Variables
 local Aiming = false
@@ -175,7 +226,7 @@ local Camera = workspace.CurrentCamera
 local ESPStore = {}
 local CurrentCircleSize = 50
 local MinCircleSize = 20
-local MaxCircleSize = 300  -- Increased max size
+local MaxCircleSize = 300
 local IsSliderDragging = false
 local RainbowHue = 0
 
@@ -264,8 +315,8 @@ local function updateCircleSize(value)
     
     local fillPercent = (CurrentCircleSize - MinCircleSize) / (MaxCircleSize - MinCircleSize)
     SliderFill.Size = UDim2.new(fillPercent, 0, 1, 0)
-    SliderButton.Position = UDim2.new(fillPercent, -7.5, 0, -2.5)
-    SliderValue.Text = "Size: " .. CurrentCircleSize
+    SliderButton.Position = UDim2.new(fillPercent, -10, 0, -2.5)
+    SliderValue.Text = "SIZE: " .. CurrentCircleSize
 end
 
 -- Update circle position to follow crosshair
@@ -419,11 +470,11 @@ end
 ToggleAim.MouseButton1Click:Connect(function()
     Aiming = not Aiming
     if Aiming then
-        ToggleAim.Text = "SKIBIDI AIM: ON"
+        ToggleAim.Text = "AIM BOT: ON"
         ToggleAim.TextColor3 = Color3.fromRGB(0, 255, 0)
         AimCircle.Visible = true
     else
-        ToggleAim.Text = "SKIBIDI AIM: OFF"
+        ToggleAim.Text = "AIM BOT: OFF"
         ToggleAim.TextColor3 = Color3.fromRGB(255, 0, 0)
         AimCircle.Visible = false
     end
@@ -432,11 +483,11 @@ end)
 ToggleESP.MouseButton1Click:Connect(function()
     ESPing = not ESPing
     if ESPing then
-        ToggleESP.Text = "SKIBIDI ESP: ON"
+        ToggleESP.Text = "ESP: ON"
         ToggleESP.TextColor3 = Color3.fromRGB(0, 255, 0)
         toggleAllESP(true)
     else
-        ToggleESP.Text = "SKIBIDI ESP: OFF"
+        ToggleESP.Text = "ESP: OFF"
         ToggleESP.TextColor3 = Color3.fromRGB(255, 0, 0)
         toggleAllESP(false)
     end
@@ -445,10 +496,10 @@ end)
 RainbowToggle.MouseButton1Click:Connect(function()
     RainbowEnabled = not RainbowEnabled
     if RainbowEnabled then
-        RainbowToggle.Text = "SKIBIDI RAINBOW: ON"
+        RainbowToggle.Text = "RAINBOW: ON"
         RainbowToggle.TextColor3 = Color3.fromRGB(0, 255, 0)
     else
-        RainbowToggle.Text = "SKIBIDI RAINBOW: OFF"
+        RainbowToggle.Text = "RAINBOW: OFF"
         RainbowToggle.TextColor3 = Color3.fromRGB(255, 0, 0)
         CircleOutline.Color = Color3.fromRGB(255, 255, 255)
     end
